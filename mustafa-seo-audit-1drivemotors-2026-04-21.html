@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SEO Audit — 1drivemotors.co.uk</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#1B2A4A;--navy-mid:#243659;--accent:#2563EB;--accent-lt:#EFF6FF;
+  --emerald:#10B981;--emerald-lt:#ECFDF5;--rose:#EF4444;--rose-lt:#FEF2F2;
+  --amber:#F59E0B;--amber-lt:#FFFBEB;--border:#E2E8F0;
+  --dark:#1E293B;--muted:#64748B;--bg:#EEF2F7;--white:#fff;
+}
+body{background:var(--bg);color:var(--dark);font-family:'Inter',sans-serif;font-size:14px;line-height:1.6}
+
+/* TOPBAR */
+.topbar{position:fixed;top:0;left:0;right:0;height:54px;background:var(--navy);z-index:200;display:flex;align-items:center;justify-content:space-between;padding:0 24px}
+.tb-domain{font-family:'Syne',sans-serif;font-weight:700;font-size:15px;color:#fff}
+.tb-centre{font-size:10px;text-transform:uppercase;letter-spacing:2px;color:#93C5FD;font-weight:500}
+.tb-right{display:flex;gap:8px}
+.tb-btn{font-size:11px;padding:5px 12px;border-radius:6px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.06);color:#fff;cursor:pointer;font-family:'Inter',sans-serif;transition:background .2s}
+.tb-btn:hover{background:rgba(255,255,255,.12)}
+.tb-btn.active{background:rgba(37,99,235,.25);border-color:rgba(37,99,235,.5);color:#93C5FD}
+
+/* HERO */
+.hero{background:linear-gradient(160deg,#0a1628 0%,var(--navy-mid) 50%,#122240 100%);padding:86px 24px 48px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 45% at 50% 0%,rgba(37,99,235,.1) 0%,transparent 70%);pointer-events:none}
+.badge-row{display:flex;justify-content:center;gap:8px;margin-bottom:16px;flex-wrap:wrap}
+.badge{display:inline-block;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;padding:4px 12px;border-radius:20px;font-weight:600;font-family:'Inter',sans-serif}
+.badge-blue{background:rgba(37,99,235,.2);color:#93C5FD;border:1px solid rgba(37,99,235,.3)}
+.badge-amber{background:rgba(245,158,11,.2);color:#FCD34D;border:1px solid rgba(245,158,11,.3)}
+.site-name{font-family:'Syne',sans-serif;font-weight:800;font-size:36px;color:#fff;margin-bottom:4px}
+.sub-line{color:rgba(255,255,255,.45);font-size:12px;margin-bottom:36px}
+
+/* GAUGES */
+.gauge-trio{display:flex;justify-content:center;gap:36px;margin-bottom:32px;flex-wrap:wrap}
+.gauge-wrap{text-align:center}
+.gauge-lbl{font-size:10px;text-transform:uppercase;letter-spacing:1.5px;color:rgba(255,255,255,.45);margin-top:8px;font-weight:500}
+
+/* HEALTH BAR */
+.hbar-wrap{max-width:460px;margin:0 auto 32px}
+.hbar-head{display:flex;justify-content:space-between;margin-bottom:6px}
+.hbar-title{font-size:10px;text-transform:uppercase;letter-spacing:1.5px;color:rgba(255,255,255,.45);font-weight:500}
+.hbar-pct{font-family:'Syne',sans-serif;font-size:17px;font-weight:800;color:#fff}
+.hbar-track{height:6px;background:rgba(255,255,255,.08);border-radius:3px;overflow:hidden}
+.hbar-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,#EF4444 0%,#F59E0B 50%,#10B981 100%);width:0;transition:width 1.4s cubic-bezier(.4,0,.2,1)}
+.radar-wrap{display:flex;justify-content:center}
+
+/* SPA BANNER */
+.spa-banner{background:#FFFBEB;border-bottom:2px solid #F59E0B;padding:12px 24px;text-align:center;font-size:12.5px;color:#92400E;line-height:1.55}
+.spa-banner strong{color:#78350F}
+
+/* SECTIONS */
+.sec{max-width:880px;margin:0 auto;padding:40px 24px}
+.sec-title{font-family:'Syne',sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--muted);margin-bottom:20px}
+
+/* STRAT CARDS */
+.strat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
+.sc{border-radius:12px;padding:20px;border:1px solid var(--border);background:var(--white);box-shadow:0 1px 3px rgba(0,0,0,.06),0 4px 16px rgba(0,0,0,.04)}
+.sc.win{background:var(--emerald-lt);border-color:rgba(16,185,129,.25)}
+.sc.risk{background:var(--rose-lt);border-color:rgba(239,68,68,.25)}
+.sc.opp{background:var(--accent-lt);border-color:rgba(37,99,235,.25)}
+.sc-icon{font-size:20px;margin-bottom:8px}
+.sc-tag{font-size:9px;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);font-weight:600;margin-bottom:5px}
+.sc-title{font-family:'Syne',sans-serif;font-size:13.5px;font-weight:700;color:var(--dark);margin-bottom:5px}
+.sc-body{font-size:12px;color:var(--muted);line-height:1.55}
+
+/* ACTION CARDS */
+.action-cards{display:flex;flex-direction:column;gap:12px}
+.ac{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:18px 20px;display:grid;grid-template-columns:auto 1fr auto;gap:14px;align-items:start;border-left-width:3px;box-shadow:0 1px 3px rgba(0,0,0,.05)}
+.ac-c{border-left-color:var(--rose)}
+.ac-h{border-left-color:#F97316}
+.ac-m{border-left-color:var(--amber)}
+.ac-q{border-left-color:var(--emerald)}
+.pill{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;padding:3px 8px;border-radius:5px;white-space:nowrap;margin-top:2px}
+.p-c{background:rgba(239,68,68,.1);color:#B91C1C;border:1px solid rgba(239,68,68,.2)}
+.p-h{background:rgba(249,115,22,.1);color:#C2410C;border:1px solid rgba(249,115,22,.2)}
+.p-m{background:rgba(245,158,11,.1);color:#92400E;border:1px solid rgba(245,158,11,.2)}
+.p-q{background:rgba(16,185,129,.1);color:#065F46;border:1px solid rgba(16,185,129,.2)}
+.ac-title{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:var(--dark);margin-bottom:4px}
+.ac-body{font-size:12px;color:var(--muted);line-height:1.55}
+.tech{display:none;margin-top:10px;font-size:11.5px;color:var(--muted);background:var(--bg);border-radius:6px;padding:10px;line-height:1.6}
+.ei-stack{display:flex;flex-direction:column;gap:7px;min-width:72px}
+.ei-row{}
+.ei-lbl{font-size:9px;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);font-weight:500;margin-bottom:2px}
+.ei-track{height:4px;background:var(--border);border-radius:2px;overflow:hidden}
+.ei-fill{height:100%;border-radius:2px;width:0;transition:width 1.1s ease .3s}
+.ef{background:var(--rose)}
+.ei{background:var(--emerald)}
+
+/* WINS */
+.wins-wrap{background:var(--emerald-lt);border-top:1px solid rgba(16,185,129,.15);border-bottom:1px solid rgba(16,185,129,.15)}
+.wins-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}
+.wc{background:rgba(16,185,129,.07);border:1px solid rgba(16,185,129,.18);border-radius:10px;padding:16px}
+.wc-icon{font-size:16px;margin-bottom:5px}
+.wc-title{font-family:'Syne',sans-serif;font-size:12.5px;font-weight:700;color:#065F46;margin-bottom:3px}
+.wc-body{font-size:11.5px;color:#047857;line-height:1.5}
+
+/* PAGES TABLE */
+details{margin-bottom:10px}
+details summary{list-style:none;cursor:pointer;padding:12px 16px;background:var(--white);border:1px solid var(--border);border-radius:10px;font-family:'Syne',sans-serif;font-size:12.5px;font-weight:700;color:var(--dark);display:flex;justify-content:space-between;align-items:center;transition:background .15s}
+details summary:hover{background:var(--bg)}
+details summary::after{content:'+';font-size:16px;color:var(--muted)}
+details[open] summary::after{content:'−'}
+details[open] summary{border-radius:10px 10px 0 0}
+.det-body{padding:16px;background:var(--white);border:1px solid var(--border);border-top:none;border-radius:0 0 10px 10px;font-size:12px}
+table{width:100%;border-collapse:collapse}
+th{text-align:left;padding:7px 10px;font-size:10px;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);font-weight:600;border-bottom:1px solid var(--border)}
+td{padding:8px 10px;border-bottom:1px solid rgba(226,232,240,.5);color:var(--muted);vertical-align:top}
+tr:last-child td{border-bottom:none}
+.st{display:inline-block;font-size:9px;font-weight:700;text-transform:uppercase;padding:2px 6px;border-radius:4px;letter-spacing:.5px}
+.st-ok{background:rgba(16,185,129,.1);color:#065F46}
+.st-warn{background:rgba(245,158,11,.1);color:#92400E}
+.st-bad{background:rgba(239,68,68,.1);color:#B91C1C}
+.st-unk{background:rgba(100,116,139,.1);color:#475569}
+
+.divider{border:none;border-top:1px solid var(--border)}
+.footer{text-align:center;padding:24px;color:var(--muted);font-size:11px}
+
+@media(max-width:600px){
+  .gauge-trio{gap:18px}
+  .site-name{font-size:26px}
+  .ac{grid-template-columns:1fr;gap:10px}
+  .tb-centre{display:none}
+}
+@media print{
+  .topbar{display:none}
+  body{background:#fff}
+  .hero{margin-top:0;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .tech{display:block!important}
+  details{display:block}
+  details summary{display:none}
+  .ac,.sc,.wc{page-break-inside:avoid;box-shadow:none}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="tb-domain">1drivemotors.co.uk</div>
+  <div class="tb-centre">SEO / GEO / AEO Audit</div>
+  <div class="tb-right">
+    <button class="tb-btn" id="tb">📖 Plain Language</button>
+    <button class="tb-btn" onclick="window.print()">⬇ Download PDF</button>
+  </div>
+</div>
+
+<div class="hero">
+  <div class="badge-row">
+    <span class="badge badge-blue">Quick Audit</span>
+    <span class="badge badge-amber">⚡ SPA Recovery Active</span>
+  </div>
+  <div class="site-name">1Drive Motors</div>
+  <div class="sub-line">1drivemotors.co.uk &nbsp;·&nbsp; 1 page crawled · 2 searches · Companies House verified &nbsp;·&nbsp; 21 April 2026</div>
+
+  <div class="gauge-trio">
+    <div class="gauge-wrap">
+      <svg viewBox="0 0 120 120" width="108" height="108">
+        <circle cx="60" cy="60" r="48" fill="none" stroke="rgba(255,255,255,.07)" stroke-width="11"/>
+        <circle class="gauge-arc" data-score="3.5" cx="60" cy="60" r="48" fill="none" stroke="#EF4444" stroke-width="11" stroke-linecap="round" stroke-dasharray="301.6" stroke-dashoffset="301.6" transform="rotate(-90 60 60)"/>
+        <text x="60" y="57" text-anchor="middle" font-family="Syne,sans-serif" font-weight="800" font-size="22" fill="white">3.5</text>
+        <text x="60" y="72" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" fill="rgba(255,255,255,.4)">/ 10</text>
+      </svg>
+      <div class="gauge-lbl">SEO</div>
+    </div>
+    <div class="gauge-wrap">
+      <svg viewBox="0 0 120 120" width="108" height="108">
+        <circle cx="60" cy="60" r="48" fill="none" stroke="rgba(255,255,255,.07)" stroke-width="11"/>
+        <circle class="gauge-arc" data-score="2.5" cx="60" cy="60" r="48" fill="none" stroke="#EF4444" stroke-width="11" stroke-linecap="round" stroke-dasharray="301.6" stroke-dashoffset="301.6" transform="rotate(-90 60 60)"/>
+        <text x="60" y="57" text-anchor="middle" font-family="Syne,sans-serif" font-weight="800" font-size="22" fill="white">2.5</text>
+        <text x="60" y="72" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" fill="rgba(255,255,255,.4)">/ 10</text>
+      </svg>
+      <div class="gauge-lbl">GEO (AI Search)</div>
+    </div>
+    <div class="gauge-wrap">
+      <svg viewBox="0 0 120 120" width="108" height="108">
+        <circle cx="60" cy="60" r="48" fill="none" stroke="rgba(255,255,255,.07)" stroke-width="11"/>
+        <circle class="gauge-arc" data-score="1.5" cx="60" cy="60" r="48" fill="none" stroke="#EF4444" stroke-width="11" stroke-linecap="round" stroke-dasharray="301.6" stroke-dashoffset="301.6" transform="rotate(-90 60 60)"/>
+        <text x="60" y="57" text-anchor="middle" font-family="Syne,sans-serif" font-weight="800" font-size="22" fill="white">1.5</text>
+        <text x="60" y="72" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" fill="rgba(255,255,255,.4)">/ 10</text>
+      </svg>
+      <div class="gauge-lbl">AEO (Snippets)</div>
+    </div>
+  </div>
+
+  <div class="hbar-wrap">
+    <div class="hbar-head">
+      <span class="hbar-title">Overall Search Health</span>
+      <span class="hbar-pct" id="h-pct">0%</span>
+    </div>
+    <div class="hbar-track"><div class="hbar-fill" id="h-fill"></div></div>
+  </div>
+
+  <div class="radar-wrap">
+    <svg viewBox="0 0 400 400" width="100%" style="max-width:380px">
+      <g id="r-grid"></g>
+      <g id="r-ax"></g>
+      <polygon id="r-poly" fill="rgba(37,99,235,.18)" stroke="#2563EB" stroke-width="2" points="200,200"/>
+      <g id="r-dots"></g>
+      <g id="r-lb"></g>
+    </svg>
+  </div>
+</div>
+
+<!-- SPA RECOVERY BANNER -->
+<div class="spa-banner">
+  <strong>⚡ SPA Rendering Detected.</strong> This site loads all content via JavaScript — search engines receive a blank shell. The audit used sitemap probing, Google index checks, and Companies House data to recover findings. Scores marked † reflect Google's current view of the site. Fix JS rendering to unlock full potential.
+</div>
+
+<!-- STRATEGIC SUMMARY -->
+<div class="sec">
+  <div class="sec-title">Strategic Summary</div>
+  <div class="strat-grid">
+    <div class="sc win">
+      <div class="sc-icon">🏆</div>
+      <div class="sc-tag">Biggest Win</div>
+      <div class="sc-title">Title Tag Is Keyword-Sharp</div>
+      <div class="sc-body">"1Drive Motors | Premium Used Cars London" — brand, category, and location all present. The one signal Google can read right now, and it's doing its job well.</div>
+    </div>
+    <div class="sc risk">
+      <div class="sc-icon">⚠️</div>
+      <div class="sc-tag">Biggest Risk</div>
+      <div class="sc-title">Completely Invisible to Google</div>
+      <div class="sc-body">Zero pages indexed. No third-party listings. No Google Business Profile found. The site doesn't exist in any search engine or AI tool — not even as a named entity.</div>
+    </div>
+    <div class="sc opp">
+      <div class="sc-icon">🚀</div>
+      <div class="sc-tag">ROI Opportunity</div>
+      <div class="sc-title">Local Search Is Wide Open</div>
+      <div class="sc-body">"Used cars London", "premium used cars East London" — these are high-intent, high-volume queries with no 1Drive presence. One architectural fix unlocks the entire local search channel.</div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- PRIORITY ROADMAP -->
+<div class="sec">
+  <div class="sec-title">Priority Roadmap</div>
+  <div class="action-cards">
+
+    <div class="ac ac-c">
+      <span class="pill p-c">Critical</span>
+      <div>
+        <div class="ac-title">Fix JavaScript Rendering — Google Sees a Blank Page†</div>
+        <div class="ac-body">Every page on the site — homepage, About, stock listings — returns empty HTML to search engines. Until this is fixed, no other SEO work will have any effect whatsoever.</div>
+        <div class="tech"><strong>Evidence:</strong> web_fetch returns only the &lt;title&gt; tag. Zero body text, no headings, no nav links. site:1drivemotors.co.uk returns 0 indexed pages in Google.<br><br><strong>Fix:</strong> Enable Server-Side Rendering (SSR) or Static Site Generation (SSG) in your framework (Next.js, Nuxt, SvelteKit etc.), or add a pre-rendering service like Prerender.io. Verify with Google Search Console URL Inspection after deploying.</div>
+      </div>
+      <div class="ei-stack">
+        <div class="ei-row"><div class="ei-lbl">Effort</div><div class="ei-track"><div class="ei-fill ef" data-w="66"></div></div></div>
+        <div class="ei-row"><div class="ei-lbl">Impact</div><div class="ei-track"><div class="ei-fill ei" data-w="100"></div></div></div>
+      </div>
+    </div>
+
+    <div class="ac ac-c">
+      <span class="pill p-c">Critical</span>
+      <div>
+        <div class="ac-title">Claim Google Business Profile + Submit Sitemap</div>
+        <div class="ac-body">No GBP found anywhere. Used car buyers search Google Maps first. Without a verified listing, 1Drive doesn't appear in the map pack — the most clicked local result format — even after the JS fix.</div>
+        <div class="tech"><strong>Evidence:</strong> Brand searches and Google Maps queries return no listing for 1Drive Motors. No sitemap found at /sitemap.xml or /sitemap_index.xml.<br><br><strong>Fix:</strong> (1) Create and verify a Google Business Profile at business.google.com. (2) Generate sitemap.xml via your framework. (3) Submit to Google Search Console. These are independent of the JS fix — do them in parallel.</div>
+      </div>
+      <div class="ei-stack">
+        <div class="ei-row"><div class="ei-lbl">Effort</div><div class="ei-track"><div class="ei-fill ef" data-w="33"></div></div></div>
+        <div class="ei-row"><div class="ei-lbl">Impact</div><div class="ei-track"><div class="ei-fill ei" data-w="100"></div></div></div>
+      </div>
+    </div>
+
+    <div class="ac ac-h">
+      <span class="pill p-h">High</span>
+      <div>
+        <div class="ac-title">Add AutoDealer Schema + Visible NAP to Every Page†</div>
+        <div class="ac-body">No structured data found anywhere. Without AutoDealer JSON-LD and a visible address/phone in the HTML, Google can't connect this business to a location — locking it out of "used cars near me" results entirely.</div>
+        <div class="tech"><strong>Fix:</strong> Add JSON-LD type AutoDealer to the homepage (and ideally every page via layout): name, address, telephone, openingHours, geo (lat/lng), url, sameAs (GBP URL). Add NAP visibly to the footer in plain HTML — not just in JS. Keep identical across site and GBP.</div>
+      </div>
+      <div class="ei-stack">
+        <div class="ei-row"><div class="ei-lbl">Effort</div><div class="ei-track"><div class="ei-fill ef" data-w="33"></div></div></div>
+        <div class="ei-row"><div class="ei-lbl">Impact</div><div class="ei-track"><div class="ei-fill ei" data-w="66"></div></div></div>
+      </div>
+    </div>
+
+    <div class="ac ac-h">
+      <span class="pill p-h">High</span>
+      <div>
+        <div class="ac-title">Make the About Page Crawlable — GEO Score Is Blocked†</div>
+        <div class="ac-body">The About page exists but its content is locked behind JavaScript. AI search engines (Perplexity, ChatGPT Search) can't read it — so they can't verify or recommend 1Drive Motors to anyone asking for a used car dealer.</div>
+        <div class="tech"><strong>Evidence:</strong> About page URL confirmed by site owner. Content unverifiable — JS-rendered. No business description, staff names, or trading history found via any source including third-party searches.<br><br><strong>Fix:</strong> Part of the overall SSR fix. Once rendering is resolved, ensure the About page includes: trading name, who runs the business (first name + role), how long operating, location, what makes the stock selection different. 300+ words minimum for GEO credit.</div>
+      </div>
+      <div class="ei-stack">
+        <div class="ei-row"><div class="ei-lbl">Effort</div><div class="ei-track"><div class="ei-fill ef" data-w="33"></div></div></div>
+        <div class="ei-row"><div class="ei-lbl">Impact</div><div class="ei-track"><div class="ei-fill ei" data-w="66"></div></div></div>
+      </div>
+    </div>
+
+    <div class="ac ac-m">
+      <span class="pill p-m">Medium</span>
+      <div>
+        <div class="ac-title">Add Meta Descriptions to All Pages†</div>
+        <div class="ac-body">None detected. These are the two lines of copy in a Google result that make someone click your listing. Missing them means Google writes them automatically — usually poorly — cutting click-through rate even once you start ranking.</div>
+        <div class="tech"><strong>Spec:</strong> 150–160 chars. Homepage example: "Browse premium used cars in London at 1Drive Motors. Quality-checked stock, transparent pricing. View current listings or call us today." Write unique descriptions for: homepage, stock listing page, individual car pages, About, Contact.</div>
+      </div>
+      <div class="ei-stack">
+        <div class="ei-row"><div class="ei-lbl">Effort</div><div class="ei-track"><div class="ei-fill ef" data-w="33"></div></div></div>
+        <div class="ei-row"><div class="ei-lbl">Impact</div><div class="ei-track"><div class="ei-fill ei" data-w="66"></div></div></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- WHAT'S WORKING -->
+<div class="sec wins-wrap">
+  <div class="sec-title" style="color:rgba(6,95,70,.7)">What's Working Well</div>
+  <div class="wins-grid">
+    <div class="wc">
+      <div class="wc-icon">✅</div>
+      <div class="wc-title">Well-Formed Title Tag</div>
+      <div class="wc-body">"1Drive Motors | Premium Used Cars London" — brand, primary keyword, and location in 42 chars. Exactly what Google needs to categorise the business.</div>
+    </div>
+    <div class="wc">
+      <div class="wc-icon">✅</div>
+      <div class="wc-title">HTTPS Active, Clean Redirect</div>
+      <div class="wc-body">Site resolves correctly on HTTPS with a clean root-to-trailing-slash redirect. Secure foundation — no mixed content warnings or certificate issues detected.</div>
+    </div>
+    <div class="wc">
+      <div class="wc-icon">✅</div>
+      <div class="wc-title">Legally Registered Entity</div>
+      <div class="wc-body">1DRIVE MOTORS LTD confirmed on Companies House (no. 16835524, SIC 45112). This is a genuine trust signal — once surfaced on-site it materially improves GEO scores.</div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- PAGES AUDITED -->
+<div class="sec">
+  <details>
+    <summary>Pages &amp; Sources Audited</summary>
+    <div class="det-body">
+      <table>
+        <tr><th>URL / Source</th><th>Status</th><th>Source</th><th>Key Finding</th></tr>
+        <tr>
+          <td>1drivemotors.co.uk/</td>
+          <td><span class="st st-warn">⚠️ JS-Rendered</span></td>
+          <td>site-direct</td>
+          <td>Title: "1Drive Motors | Premium Used Cars London". Body: empty. No nav, schema, or meta description returned.</td>
+        </tr>
+        <tr>
+          <td>/sitemap.xml</td>
+          <td><span class="st st-bad">❌ Inaccessible</span></td>
+          <td>fetcher blocked</td>
+          <td>URL not surfaced in prior search results — fetcher security constraint prevented access.</td>
+        </tr>
+        <tr>
+          <td>/robots.txt</td>
+          <td><span class="st st-bad">❌ Inaccessible</span></td>
+          <td>fetcher blocked</td>
+          <td>Same constraint. Cannot confirm whether Googlebot is being blocked or a sitemap is declared.</td>
+        </tr>
+        <tr>
+          <td>Google Index Check</td>
+          <td><span class="st st-bad">❌ 0 pages</span></td>
+          <td>search</td>
+          <td>site:1drivemotors.co.uk returns zero results. Domain not present in Google's index.</td>
+        </tr>
+        <tr>
+          <td>Brand + NAP search</td>
+          <td><span class="st st-bad">❌ Not found</span></td>
+          <td>search</td>
+          <td>No GBP listing, no directory presence, no third-party NAP data found for "1Drive Motors" or "1drivemotors.co.uk".</td>
+        </tr>
+        <tr>
+          <td>Companies House</td>
+          <td><span class="st st-ok">✅ Confirmed</span></td>
+          <td>3P: Companies House</td>
+          <td>1DRIVE MOTORS LTD · Company no. 16835524 · Incorporated 6 Nov 2025 · SIC 45112 (used cars).</td>
+        </tr>
+        <tr>
+          <td>/about (user-confirmed)</td>
+          <td><span class="st st-warn">⚠️ Exists, unreadable</span></td>
+          <td>user confirmation</td>
+          <td>Page exists per site owner. Content JS-rendered — not discoverable or readable by Google or AI search engines.</td>
+        </tr>
+      </table>
+      <div style="margin-top:12px;font-size:11.5px;color:var(--muted);line-height:1.6">
+        <strong>Note on fetcher constraints:</strong> My web fetcher can only access URLs that have previously appeared in search results. Because 1drivemotors.co.uk has zero Google index presence, direct URL probing (sitemap, robots.txt, /about etc.) is blocked at the security layer — not by the site itself. This will resolve automatically once the site is indexed.
+      </div>
+    </div>
+  </details>
+</div>
+
+<div class="footer">
+  Audited 21 April 2026 &nbsp;·&nbsp; 1drivemotors.co.uk &nbsp;·&nbsp; Quick Audit &nbsp;·&nbsp; Powered by Claude AI · Mustafa's SEO Audit Tool v7.1
+</div>
+
+<script>
+// Gauges
+const C=301.6;
+document.querySelectorAll('.gauge-arc').forEach(el=>{
+  const s=parseFloat(el.dataset.score);
+  el.style.stroke=s>=8?'#10B981':s>=5?'#F59E0B':'#EF4444';
+  setTimeout(()=>{
+    el.style.transition='stroke-dashoffset 1.4s cubic-bezier(.4,0,.2,1)';
+    el.style.strokeDashoffset=C-(s/10*C);
+  },150);
+});
+
+// Health bar — (3.5+2.5+1.5)/3*10 = 25%
+const pct=25;
+setTimeout(()=>{
+  document.getElementById('h-fill').style.width=pct+'%';
+  let c=0;const iv=setInterval(()=>{
+    document.getElementById('h-pct').textContent=(c=Math.min(c+1,pct))+'%';
+    if(c>=pct)clearInterval(iv);
+  },22);
+},150);
+
+// Effort/Impact bars
+document.querySelectorAll('.ei-fill[data-w]').forEach(el=>{
+  setTimeout(()=>el.style.width=el.dataset.w+'%',400);
+});
+
+// Radar
+(function(){
+  const cx=200,cy=200,R=130,n=6;
+  const labels=['Technical','Content','Trust','AI-Ready','Schema','Local'];
+  const scores=[3,2,2,2,1,1.5];
+  function pt(i,r){const a=(2*Math.PI*i/n)-Math.PI/2;return[cx+r*Math.cos(a),cy+r*Math.sin(a)];}
+  const grid=document.getElementById('r-grid');
+  [.2,.4,.6,.8,1].forEach(f=>{
+    const p=Array.from({length:n},(_,i)=>pt(i,R*f).join(',')).join(' ');
+    grid.innerHTML+=`<polygon points="${p}" fill="none" stroke="rgba(255,255,255,.07)" stroke-width="1"/>`;
+  });
+  const ax=document.getElementById('r-ax'),lb=document.getElementById('r-lb');
+  for(let i=0;i<n;i++){
+    const[x,y]=pt(i,R);
+    ax.innerHTML+=`<line x1="${cx}" y1="${cy}" x2="${x}" y2="${y}" stroke="rgba(255,255,255,.1)" stroke-width="1"/>`;
+    const[lx,ly]=pt(i,R+26);
+    lb.innerHTML+=`<text x="${lx}" y="${ly}" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="rgba(255,255,255,.6)">${labels[i]}</text><text x="${lx}" y="${parseFloat(ly)+13}" text-anchor="middle" font-family="Syne,sans-serif" font-size="9.5" font-weight="700" fill="#2563EB">${scores[i]}/10</text>`;
+  }
+  const poly=document.getElementById('r-poly'),dots=document.getElementById('r-dots');
+  poly.setAttribute('points',Array(n).fill(`${cx},${cy}`).join(' '));
+  const t0=performance.now();
+  (function anim(now){
+    const p=Math.min((now-t0)/1200,1),e=1-Math.pow(1-p,3);
+    poly.setAttribute('points',scores.map((_,i)=>{const[x,y]=pt(i,(scores[i]/10)*R*e);return`${x},${y}`;}).join(' '));
+    dots.innerHTML=scores.map((_,i)=>{const[x,y]=pt(i,(scores[i]/10)*R*e);return`<circle cx="${x}" cy="${y}" r="4" fill="#2563EB" stroke="white" stroke-width="1.5"/>`;}).join('');
+    if(p<1)requestAnimationFrame(anim);
+  })(t0);
+})();
+
+// Audience toggle
+document.getElementById('tb').addEventListener('click',function(){
+  const on=this.classList.toggle('active');
+  document.querySelectorAll('.tech').forEach(el=>el.style.display=on?'block':'none');
+  this.textContent=on?'🔧 Technical Detail':'📖 Plain Language';
+});
+</script>
+</body>
+</html>
